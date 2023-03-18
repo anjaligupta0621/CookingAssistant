@@ -1,0 +1,23 @@
+# pycache
+__pycache__/
+api/__pycache__/
+
+# Virtual environment
+venv/
+.DS_Store
+
+# Logs file
+/logs
+*.log
+*.wav
+
+# Videos
+frontend/build/*.mp4
+frontend/public/*.mp4
+
+#node modules
+frontend/node_modules
+frontend/build
+
+data/
+Copy*
