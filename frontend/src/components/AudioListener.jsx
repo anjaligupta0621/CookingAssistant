@@ -28,25 +28,36 @@ const AudioListener = () => {
       // stop audio recording
       SpeechRecognition.stopListening()
     }
-    if (event.key === "p") {
-      // stop audio recording and hide component as well
-      SpeechRecognition.stopListening()
-    }
   }
 
   window.removeEventListener("keypress", handleKeypress)
   window.addEventListener("keypress", handleKeypress)
 
- useEffect(() => {
-   if (finalTranscript !== '') {
-      // We can make API Call to backend or process the query to 
-      // show/speech out a result 
-      console.log('User Query->', finalTranscript);
-
-      // Resetting User Query(finalTranscript) after processing
-      resetTranscript()
-   }
- }, [interimTranscript, finalTranscript, resetTranscript]);
+  useEffect(() => {
+    if (finalTranscript !== '') {
+       // We can make API Call to backend or process the query to 
+       // show/speech out a result 
+       console.log('User Query->', finalTranscript);
+       const words = finalTranscript.split(' ');
+       if (words[0] === "Hello" || words[0] === "hello") {
+        // Only take action when the first word is hello (keyword for now)
+        for (var i = 0; i < words.length; i++){
+          console.log(words[i]);
+          if (words[i] === "Play" ||  words[i] === "play"){
+            console.log("Play from AudioListener");
+            window.dispatchEvent(new KeyboardEvent("keypress", {"key": "p"}));
+          }
+          if (words[i] === "Pause" ||  words[i] === "pause"){
+             console.log("Pause from AudioListener");
+             window.dispatchEvent(new KeyboardEvent("keypress", {"key": "p"}));
+         }
+       }
+       }
+       
+       // Resetting User Query(finalTranscript) after processing
+       resetTranscript()
+    }
+  }, [finalTranscript, resetTranscript]);
  
  if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
    return null;

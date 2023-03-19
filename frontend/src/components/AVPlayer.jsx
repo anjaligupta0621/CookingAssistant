@@ -10,7 +10,6 @@ const AVPlayer = (args) => {
   const divRef = React.useRef(null)
   const [videoID, setVideoID] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("Video QA");
-  console.log(args.videoFeedType)
 
   // Handle events
   useEffect(() => {
