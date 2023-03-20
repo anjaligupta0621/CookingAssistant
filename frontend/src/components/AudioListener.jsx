@@ -6,7 +6,6 @@ const AudioListener = () => {
  const commands = [] // can be used to return trained responses if we want, otherwise kept blank
  const {
    transcript,
-   interimTranscript,
    finalTranscript,
    resetTranscript,
  } = useSpeechRecognition({ commands });

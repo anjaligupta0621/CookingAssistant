@@ -3,19 +3,13 @@ import { Box, Stack, Typography } from '@mui/material';
 import axios from 'axios'
 import { Sidebar, Videos } from './';
 
-var videoFeedType = "online"
-
 const Feed = () => {
     const [selectedCategory, setSelectedCategory] = useState("Video QA");
     const [videos, setVideos] = useState(null);
 
     useEffect(() => {
         setVideos(null);
-        axios.get('/api/yturls', {
-        params: {
-            type: videoFeedType
-        }
-        })
+        axios.get('/api/yturls')
         .then(response => {
             setVideos(response.data.url);
         }).catch(error => {
@@ -36,7 +30,7 @@ const Feed = () => {
                 <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
                     {selectedCategory}
                 </Typography>
-                <Videos videos={videos} feedType={videoFeedType}/>
+                <Videos videos={videos}/>
             </Box>
         </Stack>
     )

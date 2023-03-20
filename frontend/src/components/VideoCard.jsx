@@ -3,8 +3,8 @@ import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import Loader from './Loader';
 import { useNavigate } from "react-router-dom"
 
-const VideoCard = ({video, videoFeedType}) => {
-    console.log(video, videoFeedType)
+const VideoCard = ({video}) => {
+    console.log(video)
     const [videoMetadata, setvideoMetadata] = useState({});
     const [video_url] = useState(video)
     const navigate = useNavigate();
@@ -16,6 +16,7 @@ const VideoCard = ({video, videoFeedType}) => {
 
     useEffect(() => {
         setvideoMetadata({});
+        // Open API to fetch the thumbnail and title of a particular video -> metadata setup
         fetch(`https://noembed.com/embed?dataType=json&url=${video_url}`)
         .then(res => res.json())
         .then((data) => {
@@ -26,7 +27,7 @@ const VideoCard = ({video, videoFeedType}) => {
 
     if (videoMetadata === {}) return <Loader />
 
-    function onVideoCardClick(id) {
+    function onVideoCardClick() {
         console.log(video_url)
         var video_id = video_url.split('v=')[1];
         var ampersandPosition = video_id.indexOf('&');

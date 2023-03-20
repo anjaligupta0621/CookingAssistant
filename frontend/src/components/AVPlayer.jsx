@@ -6,7 +6,7 @@ import { Sidebar, AudioListener} from './';
 
 const AVPlayer = (args) => {
   const [isPlaying, setIsPlaying] = useState(args.playing) // handling state of play/pause of player
-  const playerRef = React.useRef(null)
+  const playerRef = React.useRef(null) // reference that needs to be passed to react player
   const divRef = React.useRef(null)
   const [videoID, setVideoID] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("Video QA");
@@ -20,7 +20,7 @@ const AVPlayer = (args) => {
 
     var parts = window.location.href.split('/');
     console.log(parts)
-    var lastSegment = parts.pop() || parts.pop();  // handle potential trailing slash
+    var lastSegment = parts.pop() || parts.pop(); 
     setVideoID(lastSegment)
     console.log(lastSegment)
   }, [])
