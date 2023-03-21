@@ -29,6 +29,10 @@ const AudioListener = () => {
     }
   }
 
+  const stopListen = () => {
+    SpeechRecognition.stopListening();
+  }
+
   window.removeEventListener("keypress", handleKeypress)
   window.addEventListener("keypress", handleKeypress)
 
@@ -50,6 +54,10 @@ const AudioListener = () => {
              console.log("Pause from AudioListener");
              window.dispatchEvent(new KeyboardEvent("keypress", {"key": "p"}));
          }
+         if (words[i] === "stop" ||  words[i] === "Stop"){
+          console.log("Stop Listening from AudioListener");
+          window.dispatchEvent(new KeyboardEvent("keypress", {"key": "s"}));
+      }
        }
        }
        
@@ -72,6 +80,7 @@ const AudioListener = () => {
        <div>
           <button type="button" onClick={listenContinuously}>Ask</button>
           <button type="button" onClick={resetTranscript}>Reset</button>
+          <button type="button" onClick={stopListen}>Stop</button>
        </div>
      </div>
      <div className="inner">
