@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react"
-
+import axios from "axios";
 import ReactPlayer from "react-player"
 import { Box, Stack, Typography } from '@mui/material';
 import { Sidebar, AudioListener} from './';
@@ -10,6 +10,7 @@ const AVPlayer = (args) => {
   const divRef = React.useRef(null)
   const [videoID, setVideoID] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("Video QA");
+  const [description, setDescription] = useState("");
 
   // Handle events
   useEffect(() => {
@@ -22,7 +23,34 @@ const AVPlayer = (args) => {
     console.log(parts)
     var lastSegment = parts.pop() || parts.pop(); 
     setVideoID(lastSegment)
-    console.log(lastSegment)
+    console.log("Video ID Set:", lastSegment);
+
+    let data = JSON.stringify(
+      {
+        'id': lastSegment
+      }
+    )
+
+    axios.post('/api/getingredients', data, {headers:{"Content-Type" : "application/json"}})
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+
+    // fetch('/api/getingredients', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({videoID})
+    // })
+    // .then(response => {
+    //   console.log("Body: ");
+    //   console.log(response);
+    // })
+    // .catch(error => console.log(error))
   }, [])
 
   const onKeyPressHandler = useCallback(
