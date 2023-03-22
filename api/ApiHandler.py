@@ -1,5 +1,6 @@
 from flask_restful import  Resource
 from flask import request
+from pytube import YouTube
 import logging
 
 log = logging.getLogger(__name__)
@@ -26,4 +27,20 @@ class VideoUrls(Resource):
             'resultStatus': 'SUCCESS',
             'url': yt_urls
         }
+    
+class VideoDescription(Resource):
+    def post(self):
+        # args = request.args
+        # print (args)
+        video_id = str(request.json['id'])
+        video = YouTube("https://www.youtube.com/watch?v=" + video_id)
+        print ("Hello from Video Description")
+        print ("Video ID: ", video_id)
+        description = video.description
+        print (description)
+        return {
+            'resultStatus': 'SUCCESS',
+            'description': description
+        }
+
 

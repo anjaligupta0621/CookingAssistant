@@ -1,6 +1,7 @@
 from flask import Flask, send_from_directory
 from flask_restful import Api
 from api.ApiHandler import VideoUrls
+from api.ApiHandler import VideoDescription
 
 import os
 import json
@@ -25,3 +26,4 @@ def serve(path):
     return send_from_directory('frontend/build', 'index.html')
 
 api.add_resource(VideoUrls, '/api/yturls')
+api.add_resource(VideoDescription, '/api/getingredients')
