@@ -36,6 +36,7 @@ const AudioListener = () => {
   window.removeEventListener("keypress", handleKeypress)
   window.addEventListener("keypress", handleKeypress)
 
+
   useEffect(() => {
     if (finalTranscript !== '') {
        // We can make API Call to backend or process the query to 
@@ -54,6 +55,10 @@ const AudioListener = () => {
              console.log("Pause from AudioListener");
              window.dispatchEvent(new KeyboardEvent("keypress", {"key": "p"}));
          }
+         if (words[i] === "Ingredients" ||  words[i] === "ingredients"){
+             console.log("GettingIngredients");
+             window.dispatchEvent(new KeyboardEvent("keypress", {"key": "i"}));
+      }
          if (words[i] === "stop" ||  words[i] === "Stop"){
           console.log("Stop Listening from AudioListener");
           window.dispatchEvent(new KeyboardEvent("keypress", {"key": "s"}));

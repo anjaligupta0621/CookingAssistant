@@ -6,12 +6,13 @@ import { Sidebar, AudioListener} from './';
 
 const AVPlayer = (args) => {
   const [isPlaying, setIsPlaying] = useState(args.playing) // handling state of play/pause of player
+  const [isIngredients, setIsIngredients] = useState(args.ingred)
   const playerRef = React.useRef(null) // reference that needs to be passed to react player
   const divRef = React.useRef(null)
   const [videoID, setVideoID] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("Video QA");
-  const [description, setDescription] = useState("");
-
+  // const [description, setDescription] = useState("");
+  const [ingredients, setIngredients] = useState("");
   // Handle events
   useEffect(() => {
     divRef.current?.focus()
@@ -33,6 +34,7 @@ const AVPlayer = (args) => {
 
     axios.post('/api/getingredients', data, {headers:{"Content-Type" : "application/json"}})
       .then(response => {
+        setIngredients(response.data.description);
         console.log(response.data);
       })
       .catch(error => {
@@ -65,6 +67,10 @@ const AVPlayer = (args) => {
     if (event.key === "a") {
       // Video needs to pause and frame captured when question is being asked
       setIsPlaying(false)
+    }
+    if (event.key === "i") {
+      // Video needs to pause and frame captured when question is being asked
+      setIsIngredients(true)
     }
   }
 
@@ -99,6 +105,7 @@ const AVPlayer = (args) => {
         <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
             {selectedCategory}
         </Typography>
+        
         <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', marginTop: '25px'}}>
             <div ref={divRef} id="container" style={{ height: "400px" }}>
                 <ReactPlayer
@@ -110,6 +117,7 @@ const AVPlayer = (args) => {
                 width={args.width || undefined}
                 height={args.height || undefined}
                 playing={isPlaying || false}
+                ingred = {isIngredients || false}
                 loop={args.loop || undefined}
                 controls={args.controls || undefined}
                 light={args.light || undefined}
@@ -124,6 +132,14 @@ const AVPlayer = (args) => {
                 <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', marginTop: '25px'}}>
                   <AudioListener />
                 </div>
+                {/* <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
+                    {ingredients}
+                </Typography> */}
+              {(isIngredients) ?
+                (<Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
+                    {ingredients}
+                </Typography>) : ''
+                }
             </div>
         </div>
       </Box>
