@@ -1,6 +1,7 @@
 from flask_restful import  Resource
 from flask import request
 from pytube import YouTube
+
 import logging
 
 log = logging.getLogger(__name__)
@@ -11,15 +12,15 @@ class VideoUrls(Resource):
 
         # online video urls for cooking videos
         yt_urls = [
-            "https://www.youtube.com/watch?v=XP41Huw-5H0",  # Video1
+            "https://www.youtube.com/watch?v=urY8nTA_aoQ",  # Video1
             "https://www.youtube.com/watch?v=9PGSlqTP1Sw",  # Video2
             "https://www.youtube.com/watch?v=VbUHSOPP_hk",  # Video3
-            "https://www.youtube.com/watch?v=NrYmeJSNmVU",  # Video4
+            "https://www.youtube.com/watch?v=fc1mnFcztqs",  # Video4
             "https://www.youtube.com/watch?v=1fe-2YDpFyw",  # Video5
-            "https://www.youtube.com/watch?v=bQoIAuwO_v4",  # Video6
-            "https://www.youtube.com/watch?v=df_8_BESHrI",  # Video7
-            "https://www.youtube.com/watch?v=ptwOwvHxgI8",  # Video8
-            "https://www.youtube.com/watch?v=-Bzs5Lhnpu8",  # Video9
+            "https://www.youtube.com/watch?v=F6Czd-2dwN0",  # Video6
+            "https://www.youtube.com/watch?v=ZBwB53EvrRo",  # Video7
+            "https://www.youtube.com/watch?v=r4saZD0J_gU",  # Video8
+            "https://www.youtube.com/watch?v=jZQT6wnyeD4",  # Video9
             "https://www.youtube.com/watch?v=QA7YfDCmvs8",  # Video10
             "https://www.youtube.com/watch?v=E9bSLVgw0qI",  # Video11
             "https://www.youtube.com/watch?v=6XlMguO9r-M"] # Video12
@@ -48,7 +49,8 @@ class VideoDescription(Resource):
         # getting elements in between
         for idx in range(idx1 + len(sub1) + 1, idx2):
             res = res + description[idx]
- 
+        print(res.split('\n'))
+        resList = res.split('\n')
         # printing result
         print("The extracted string : " + res)
         # split_word = 'Ingredients:'
@@ -56,7 +58,7 @@ class VideoDescription(Resource):
         # print('Result',res)
         return {
             'resultStatus': 'SUCCESS',
-            'description': res
+            'description': resList
         }
 
 
