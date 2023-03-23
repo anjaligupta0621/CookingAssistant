@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react"
 import axios from "axios";
 import ReactPlayer from "react-player"
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Stack, Table, Typography } from '@mui/material';
 import { Sidebar, AudioListener} from './';
 
 const AVPlayer = (args) => {
@@ -11,8 +11,8 @@ const AVPlayer = (args) => {
   const divRef = React.useRef(null)
   const [videoID, setVideoID] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("Video QA");
-  // const [description, setDescription] = useState("");
-  const [ingredients, setIngredients] = useState("");
+  const [description, setDescription] = useState("");
+  const [ingredients, setIngredients] = useState([]);
   // Handle events
   useEffect(() => {
     divRef.current?.focus()
@@ -35,7 +35,7 @@ const AVPlayer = (args) => {
     axios.post('/api/getingredients', data, {headers:{"Content-Type" : "application/json"}})
       .then(response => {
         setIngredients(response.data.description);
-        console.log(response.data);
+        console.log(response.data.description);
       })
       .catch(error => {
         console.log(error);
@@ -130,16 +130,21 @@ const AVPlayer = (args) => {
                 />
                 <br></br>
                 <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', marginTop: '25px'}}>
-                  <AudioListener />
+                  <AudioListener ingredients/>
                 </div>
-                {/* <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
-                    {ingredients}
-                </Typography> */}
+                
+                <br></br>
               {(isIngredients) ?
-                (<Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
-                    {ingredients}
-                </Typography>) : ''
-                }
+                <Table style={{border: '2px solid forestgreen', width: '800px', height: '100px'}} variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
+                  {ingredients.map((item, idx) => (
+                  // <Box key={idx}>
+                  //   <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
+                  <tr style={{border: '2px solid pink'}} > <td style={{textalign: 'center'}}>{item} </td></tr>
+                  // </Typography>
+                  // </Box>
+                ))}
+                </Table> : ''
+              } 
             </div>
         </div>
       </Box>
