@@ -11,11 +11,11 @@ class VideoUrls(Resource):
 
         # online video urls for cooking videos
         yt_urls = [
-            "https://www.youtube.com/watch?v=dSP6L6vGDPs",  # Video1
-            "https://www.youtube.com/watch?v=7kwmmK4FhCI",  # Video2
-            "https://www.youtube.com/watch?v=Gbuse4WX01I",  # Video3
-            "https://www.youtube.com/watch?v=XP41Huw-5H0",  # Video4
-            "https://www.youtube.com/watch?v=LwhBS9czmTk",  # Video5
+            "https://www.youtube.com/watch?v=XP41Huw-5H0",  # Video1
+            "https://www.youtube.com/watch?v=9PGSlqTP1Sw",  # Video2
+            "https://www.youtube.com/watch?v=VbUHSOPP_hk",  # Video3
+            "https://www.youtube.com/watch?v=NrYmeJSNmVU",  # Video4
+            "https://www.youtube.com/watch?v=1fe-2YDpFyw",  # Video5
             "https://www.youtube.com/watch?v=bQoIAuwO_v4",  # Video6
             "https://www.youtube.com/watch?v=df_8_BESHrI",  # Video7
             "https://www.youtube.com/watch?v=ptwOwvHxgI8",  # Video8
@@ -38,9 +38,25 @@ class VideoDescription(Resource):
         print ("Video ID: ", video_id)
         description = video.description
         print (description)
+        sub1 = "Ingredients:"
+        sub2 = "Method:"
+        # getting index of substrings
+        idx1 = description.index(sub1)
+        idx2 = description.index(sub2)
+        
+        res = ''
+        # getting elements in between
+        for idx in range(idx1 + len(sub1) + 1, idx2):
+            res = res + description[idx]
+ 
+        # printing result
+        print("The extracted string : " + res)
+        # split_word = 'Ingredients:'
+        # res = description[description.find(split_word)+len(split_word):]
+        # print('Result',res)
         return {
             'resultStatus': 'SUCCESS',
-            'description': description
+            'description': res
         }
 
 

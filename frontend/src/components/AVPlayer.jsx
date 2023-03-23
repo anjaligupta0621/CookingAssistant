@@ -1,17 +1,18 @@
 import React, { useEffect, useState, useCallback } from "react"
 import axios from "axios";
 import ReactPlayer from "react-player"
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Stack, Table, Typography } from '@mui/material';
 import { Sidebar, AudioListener} from './';
 
 const AVPlayer = (args) => {
   const [isPlaying, setIsPlaying] = useState(args.playing) // handling state of play/pause of player
+  const [isIngredients, setIsIngredients] = useState(args.ingred)
   const playerRef = React.useRef(null) // reference that needs to be passed to react player
   const divRef = React.useRef(null)
   const [videoID, setVideoID] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("Video QA");
   const [description, setDescription] = useState("");
-
+  const [ingredients, setIngredients] = useState([]);
   // Handle events
   useEffect(() => {
     divRef.current?.focus()
@@ -33,7 +34,8 @@ const AVPlayer = (args) => {
 
     axios.post('/api/getingredients', data, {headers:{"Content-Type" : "application/json"}})
       .then(response => {
-        console.log(response.data);
+        setIngredients(response.data.description);
+        console.log(response.data.description);
       })
       .catch(error => {
         console.log(error);
@@ -65,6 +67,10 @@ const AVPlayer = (args) => {
     if (event.key === "a") {
       // Video needs to pause and frame captured when question is being asked
       setIsPlaying(false)
+    }
+    if (event.key === "i") {
+      // Video needs to pause and frame captured when question is being asked
+      setIsIngredients(true)
     }
   }
 
@@ -99,6 +105,7 @@ const AVPlayer = (args) => {
         <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
             {selectedCategory}
         </Typography>
+        
         <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', marginTop: '25px'}}>
             <div ref={divRef} id="container" style={{ height: "400px" }}>
                 <ReactPlayer
@@ -110,6 +117,7 @@ const AVPlayer = (args) => {
                 width={args.width || undefined}
                 height={args.height || undefined}
                 playing={isPlaying || false}
+                ingred = {isIngredients || false}
                 loop={args.loop || undefined}
                 controls={args.controls || undefined}
                 light={args.light || undefined}
@@ -122,8 +130,21 @@ const AVPlayer = (args) => {
                 />
                 <br></br>
                 <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', marginTop: '25px'}}>
-                  <AudioListener />
+                  <AudioListener ingredients/>
                 </div>
+                
+                <br></br>
+              {(isIngredients) ?
+                <Table style={{border: '2px solid forestgreen', width: '800px', height: '100px'}} variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
+                  {ingredients.map((item, idx) => (
+                  // <Box key={idx}>
+                  //   <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
+                  <tr style={{border: '2px solid pink'}} > <td style={{textalign: 'center'}}>{item} </td></tr>
+                  // </Typography>
+                  // </Box>
+                ))}
+                </Table> : ''
+              } 
             </div>
         </div>
       </Box>
