@@ -26,3 +26,20 @@ h5 {
 .spanColor {
 	color: #fff;
 }
+
+.buttons {
+	background-color: red;
+	color: white;
+	font-weight: bold;
+}
+
+.buttons:hover {
+	background-color: white;
+	color: red;
+	font-weight: bold;
+}
+
+.button-container {
+	align-items: center;
+	margin-bottom: 20px;
+}

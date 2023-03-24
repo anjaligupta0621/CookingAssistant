@@ -60,9 +60,22 @@ const AVPlayer = (args) => {
     [setIsPlaying]
   )
 
+  const onPlayHandler = () => {
+    setIsPlaying(true);
+  }
+
+  const onPauseHandler = () => {
+    setIsPlaying(false);
+  }
+
   const handleKeypress = event => {
     if (event.key === "p") {
-      onKeyPressHandler()
+      // onKeyPressHandler()
+      onPlayHandler();
+    }
+    if (event.key === "q") {
+      // onKeyPressHandler()
+      onPauseHandler();
     }
     if (event.key === "a") {
       // Video needs to pause and frame captured when question is being asked

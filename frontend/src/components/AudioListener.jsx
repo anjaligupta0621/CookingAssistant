@@ -79,7 +79,7 @@ const AudioListener = (props) => {
           }
           if (words[i] === "Pause" ||  words[i] === "pause"){
              console.log("Pause from AudioListener");
-             window.dispatchEvent(new KeyboardEvent("keypress", {"key": "p"}));
+             window.dispatchEvent(new KeyboardEvent("keypress", {"key": "q"}));
           }
           if (words[i] === "Ingredients" ||  words[i] === "ingredients"){
              console.log("GettingIngredients");
@@ -124,10 +124,10 @@ const AudioListener = (props) => {
  return (
     <div id="outer">
      <div className="inner">
-       <div>
-          <button type="button" onClick={listenContinuously}>Ask</button>
-          <button type="button" onClick={resetTranscript}>Reset</button>
-          <button type="button" onClick={stopListen}>Stop</button>
+       <div className='button-container'>
+          <button className='buttons' type="button" onClick={listenContinuously}>Ask</button>
+          <button className='buttons' type="button" onClick={resetTranscript}>Reset</button>
+          <button className='buttons' type="button" onClick={stopListen}>Stop</button>
        </div>
      </div>
      <div className="inner">
