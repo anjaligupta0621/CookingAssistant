@@ -3,6 +3,8 @@ import axios from "axios";
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import { Typography, Box } from '@mui/material';
 import "./Audio.css"
+import { useSpeechSynthesis } from 'react-speech-kit';
+import Speech from 'react-speech';
 
 const AudioListener = (props) => {
  const [videoID, setVideoID] = useState("")
@@ -14,6 +16,7 @@ const AudioListener = (props) => {
    finalTranscript,
    resetTranscript,
  } = useSpeechRecognition({ commands });
+ const {speak} = useSpeechSynthesis();
 
  const listenContinuously = () => {
   SpeechRecognition.startListening({
@@ -94,6 +97,8 @@ const AudioListener = (props) => {
               if (finderString.toLowerCase() === ingredients[i].slice(0,finderString.length).toLowerCase()){
                 console.log("$$$$$$$$$$%%%%%%",ingredients[i])
                 setSplword(ingredients[i])
+                speak({text: ingredients[i]})
+                
                 console.log('Getting splword', splword);
               }
             }
@@ -112,6 +117,7 @@ const AudioListener = (props) => {
        resetTranscript()
     }
   }, [finalTranscript, resetTranscript]);
+
  
  if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
    return null;
@@ -119,6 +125,10 @@ const AudioListener = (props) => {
 
  if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
    console.log('Your browser does not support speech recognition software! Try Chrome desktop, maybe?');
+ }
+
+ const onSpeakHandler = (value) => {
+  speak({text: value});
  }
  
  return (
@@ -133,10 +143,12 @@ const AudioListener = (props) => {
      <div className="inner">
        <span className='spanColor'>{transcript}</span>
      </div>
-     
+        <div>
         <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
             {splword}
         </Typography>
+
+        </div>
    
    </div>
    
