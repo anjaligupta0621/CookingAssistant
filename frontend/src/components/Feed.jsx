@@ -2,12 +2,14 @@ import {useEffect, useState} from 'react';
 import { Box, Stack, Typography, Grid } from '@mui/material';
 import axios from 'axios'
 import { Sidebar, Videos } from './';
-import SearchBar from './SearchBar';
 
 const Feed = () => {
     const [selectedCategory, setSelectedCategory] = useState("Video QA");
     const [videos, setVideos] = useState(null);
     const [videoData, setVideoData] = useState([]);
+    const [searchInput, setSearchInput] = useState('');
+
+    const [searchData, setsearchData] = useState([]);
 
     useEffect(() => {
         setVideos(null);
@@ -29,6 +31,7 @@ const Feed = () => {
                     }
                     console.log("video id: ", video_id);
                     // setvideoMetadata({thumbnail_url: `https://img.youtube.com/vi/${video_id}/sddefault.jpg`, video_title: data.title})
+                    setsearchData(searchData => [...searchData, {video_id: video_id, video_url: video_url, thumbnail_url: `https://img.youtube.com/vi/${video_id}/sddefault.jpg`, video_title: data.title}]);
                     setVideoData(videoData => [...videoData, {video_id: video_id, video_url: video_url, thumbnail_url: `https://img.youtube.com/vi/${video_id}/sddefault.jpg`, video_title: data.title}]);
                 })
             }
@@ -40,6 +43,20 @@ const Feed = () => {
         })
 
     }, [selectedCategory, setVideos]);
+
+    const onChangeSearch = (e) => {
+        setSearchInput(e.target.value);
+        console.log("searchTerm: ", searchInput);
+
+        let value = e.target.value.toLowerCase();
+
+        let result = [];
+        result = videoData.filter((data) => {
+            return data.video_title.toLowerCase().search(value) !== -1;
+        });
+        setsearchData(result);
+        
+    }
 
     return (            
         <Stack sx={{ flexDirection: { sx: "column", md: "row" } }}>
@@ -56,16 +73,21 @@ const Feed = () => {
                 direction="column"
                 alignItems="center"
                 justifyContent="center"
-                // style={{ minHeight: '100vh' }}
                 >
                 <Grid item xs={6}>
-                    <SearchBar />
+                    <div className='search-bar'>
+                        <input
+                            type="search"
+                            placeholder="Search here"
+                            onChange={onChangeSearch}
+                            value={searchInput} />
+                    </div>
                 </Grid>   
             </Grid> 
                 <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
                     {selectedCategory}
                 </Typography>
-                <Videos videoData={videoData}/>
+                <Videos videoData={searchData}/>
             </Box>
         </Stack>
     )

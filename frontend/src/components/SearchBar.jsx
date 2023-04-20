@@ -1,15 +1,15 @@
 import React from 'react';
 import './SearchBar.css';
 
-function SearchBar(props) {
+function SearchBar({onChangeSearch}) {
 
     const [searchInput, setSearchInput] = React.useState('');
     const [searchData, setSearchData] = React.useState([]);
 
-    const searchChangeHandler = (event) => {
-        event.preventDefault();
-        setSearchInput(event.target.value);
-    }
+    // const searchChangeHandler = (event) => {
+    //     event.preventDefault();
+    //     setSearchInput(event.target.value);
+    // }
 
     if (searchInput.length > 0) {
         searchData.filter((item) => {
@@ -23,7 +23,7 @@ function SearchBar(props) {
             <input
                 type="search"
                 placeholder="Search here"
-                onChange={searchChangeHandler}
+                onChange={onChangeSearch}
                 value={searchInput} />
         </div>
     );
