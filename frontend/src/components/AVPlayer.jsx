@@ -3,9 +3,13 @@ import axios from "axios";
 import ReactPlayer from "react-player"
 import { Box, Stack, Table, Typography } from '@mui/material';
 import { Sidebar, AudioListener} from './';
-
+import { useSpeechSynthesis } from 'react-speech-kit';
+import Speech from 'react-speech';
 const AVPlayer = (args) => {
+ 
   const [isPlaying, setIsPlaying] = useState(args.playing) // handling state of play/pause of player
+  const [isTimestamps, setIsTimestamps] = useState(args.timestamps)
+  const [isRewind, setIsRewind] = useState(args.rewind)
   const [isIngredients, setIsIngredients] = useState(args.ingred)
   const playerRef = React.useRef(null) // reference that needs to be passed to react player
   const divRef = React.useRef(null)
@@ -13,8 +17,11 @@ const AVPlayer = (args) => {
   const [selectedCategory, setSelectedCategory] = useState("Video QA");
   const [description, setDescription] = useState("");
   const [ingredients, setIngredients] = useState([]);
+  const [splword, setSplword] = useState("");
+  const {speak} = useSpeechSynthesis();
   // Handle events
   useEffect(() => {
+    
     divRef.current?.focus()
 
     window.removeEventListener("keypress", handleKeypress)
@@ -32,6 +39,8 @@ const AVPlayer = (args) => {
       }
     )
 
+    // Api for ingredients is being called here
+    // Output stored in ingredients use state
     axios.post('/api/getingredients', data, {headers:{"Content-Type" : "application/json"}})
       .then(response => {
         setIngredients(response.data.description);
@@ -55,14 +64,63 @@ const AVPlayer = (args) => {
     // .catch(error => console.log(error))
   }, [])
 
+  const [dataChild, setdataChild] = useState(0);
   const onKeyPressHandler = useCallback(
     () => setIsPlaying(isPlaying => !isPlaying),
     [setIsPlaying]
   )
 
+  const onPlayHandler = () => {
+    setIsPlaying(true);
+  }
+
+  const onPauseHandler = () => {
+    setIsPlaying(false);
+  }
+
+  // function callBack(childData) {
+  //   console.log("Entering callback"+childData);
+  //   setdataChild(childData);
+  // }
+
+  // Handles the jumping timestamps, navigation and titration functionality
+  const handleJump = (childData, type) => {
+    if (type == "jump") {
+        if (playerRef.current) {
+          // Jump to 30 seconds
+          console.log("AVplayer time checking "+childData);
+          playerRef.current.seekTo(childData);
+        }
+    }
+    else if (type == "back") {
+      playerRef.current.seekTo(playerRef.current.getCurrentTime() - childData);
+    }
+    else if (type == "forward") {
+      playerRef.current.seekTo(playerRef.current.getCurrentTime() + childData);
+    }
+    else {
+      // Handles the titration functionality 
+      for(var i = 0; i < ingredients.length; i++){
+          console.log('$$$$$$$$$Entering the ingredients for loop', ingredients[i].slice(0,6).toLowerCase())
+          if (type.toLowerCase() === ingredients[i].slice(0,type.length).toLowerCase()) {
+            console.log("$$$$$$$$$$%%%%%%",ingredients[i])
+            setSplword(ingredients[i])
+            speak({text: ingredients[i]})
+            console.log('Getting splword', splword);
+          }
+        }
+    }
+  }
+  
+  const videoIDForIngredients = videoID;
   const handleKeypress = event => {
     if (event.key === "p") {
-      onKeyPressHandler()
+      // onKeyPressHandler()
+      onPlayHandler();
+    }
+    if (event.key === "q") {
+      // onKeyPressHandler()
+      onPauseHandler();
     }
     if (event.key === "a") {
       // Video needs to pause and frame captured when question is being asked
@@ -117,9 +175,11 @@ const AVPlayer = (args) => {
                 width={args.width || undefined}
                 height={args.height || undefined}
                 playing={isPlaying || false}
+                timestamps = {isTimestamps || false}
                 ingred = {isIngredients || false}
                 loop={args.loop || undefined}
-                controls={args.controls || undefined}
+                // controls={args.controls || undefined}
+                controls={true}
                 light={args.light || undefined}
                 volume={args.volume}
                 muted={args.muted || undefined}
@@ -130,8 +190,14 @@ const AVPlayer = (args) => {
                 />
                 <br></br>
                 <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', marginTop: '25px'}}>
-                  <AudioListener ingredients/>
+                  <AudioListener handleCallBack = {handleJump} ingredients/>
                 </div>
+              <div>
+                <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
+                    {splword}
+                </Typography>
+              </div>
+                
                 
                 <br></br>
               {(isIngredients) ?

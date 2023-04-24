@@ -1,15 +1,17 @@
-import React from 'react'
-import { Stack, Box } from "@mui/material";
+import { Stack, Box, Grid } from "@mui/material";
 import { Loader, VideoCard,  } from "./";
+import SearchBar from './SearchBar';
 
-const Videos = ({ videos, direction, feedType}) => {
+const Videos = ({ videoData, direction, feedType}) => {
+
   console.log(feedType)
-  if(!videos?.length) return <Loader />;
+  if(!videoData?.length) return <Loader />;
+
   return (
     <Stack direction={direction || "row"} flexWrap="wrap" justifyContent="start" alignItems="start" gap={2}>
-      {videos.map((item, idx) => (
+      {videoData.map((item, idx) => (
         <Box key={idx}>
-          <VideoCard video={item}/>
+          <VideoCard video={item.video_url} thumbnail={item.thumbnail_url} title={item.video_title} video_id={item.video_id}/>
         </Box>
       ))}
     </Stack>
