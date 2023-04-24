@@ -39,6 +39,8 @@ const AVPlayer = (args) => {
       }
     )
 
+    // Api for ingredients is being called here
+    // Output stored in ingredients use state
     axios.post('/api/getingredients', data, {headers:{"Content-Type" : "application/json"}})
       .then(response => {
         setIngredients(response.data.description);
@@ -81,6 +83,7 @@ const AVPlayer = (args) => {
   //   setdataChild(childData);
   // }
 
+  // Handles the jumping timestamps, navigation and titration functionality
   const handleJump = (childData, type) => {
     if (type == "jump") {
         if (playerRef.current) {
@@ -96,6 +99,7 @@ const AVPlayer = (args) => {
       playerRef.current.seekTo(playerRef.current.getCurrentTime() + childData);
     }
     else {
+      // Handles the titration functionality 
       for(var i = 0; i < ingredients.length; i++){
           console.log('$$$$$$$$$Entering the ingredients for loop', ingredients[i].slice(0,6).toLowerCase())
           if (type.toLowerCase() === ingredients[i].slice(0,type.length).toLowerCase()) {
@@ -125,32 +129,7 @@ const AVPlayer = (args) => {
     if (event.key === "i") {
       // Video needs to pause and frame captured when question is being asked
       setIsIngredients(true)
-      // var parts = window.location.href.split('/');
-      // console.log(parts)
-      // var lastSegment = parts.pop() || parts.pop(); 
-      // setVideoID(lastSegment)
-      // console.log("Video ID Set:", lastSegment);
-      // console.log("The video ID from Last Segment ",videoIDForIngredients)
-      // let data = JSON.stringify(
-      //   {
-      //     'id': videoIDForIngredients
-      //   }
-      // )
-      // axios.post('/api/getingredients', data, {headers:{"Content-Type" : "application/json"}})
-      // .then(response => {
-      //   setIngredients(response.data.description);
-      //   console.log(response.data.description);
-      // })
-      // .catch(error => {
-      //   console.log(error);
-      // })
     }
-    // if (event.key === "t") {
-    //   // Video needs to pause and frame captured when question is being asked
-    //   setIsTimestamps(true)
-    //   handleJump();
-    //   setIsTimestamps(false)
-    // }
   }
 
   const onVideoPlay = () => {

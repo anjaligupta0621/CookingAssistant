@@ -93,6 +93,7 @@ const AudioListener = (props) => {
             var temp = 0;
             var type = words[i];
             {props.handleCallBack(temp, type)}
+            // Kept the commented out code for debugging
             // console.log('$$$$$$$$$Entering the how much', words[i - 1], words[i])
             // console.log(ingredients.length)
             // var finderString = words[i];
@@ -111,6 +112,7 @@ const AudioListener = (props) => {
             
           }
           else if (words[i].includes(":") || words[i] === "back" ||  words[i] === "Back" || words[i] === "forward" ||  words[i] === "Forward") {
+            // Handles code for jumping timestamps and navigation
             var temp = 0;
             var type = "";
             if (words[i] === "back" ||  words[i] === "Back") {
