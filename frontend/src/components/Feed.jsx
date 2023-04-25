@@ -8,6 +8,7 @@ const Feed = () => {
     const [videos, setVideos] = useState(null);
     const [videoData, setVideoData] = useState([]);
     const [searchInput, setSearchInput] = useState('');
+
     const [searchData, setsearchData] = useState([]);
 
     useEffect(() => {
@@ -73,7 +74,7 @@ const Feed = () => {
                 alignItems="center"
                 justifyContent="center"
                 >
-                <Grid item xs={4}>
+                <Grid item xs={6}>
                     <div className='search-bar'>
                         <input
                             type="search"

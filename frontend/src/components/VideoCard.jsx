@@ -38,9 +38,9 @@ const VideoCard = ({video, thumbnail, title, video_id}) => {
     }
 
     return (
-        <Card onClick={onVideoCardClick} sx={{ width: { xs: '100%', sm: '420px', md: '420px'}, height: 350, boxShadow: "none", borderRadius: 0 }}>
-            <CardMedia image={thumbnail} sx={{ width: { xs: '100%', sm: '420px'}, height: 350 }} />
-            <CardContent sx={{ backgroundColor: "#1E1E1E", height: '308px' }}>
+        <Card onClick={onVideoCardClick} sx={{ width: { xs: '100%', sm: '358px', md: "320px", }, boxShadow: "none", borderRadius: 0 }}>
+            <CardMedia image={thumbnail} sx={{ width: { xs: '100%', sm: '358px'}, height: 180 }} />
+            <CardContent sx={{ backgroundColor: "#1E1E1E", height: '106px' }}>
                 <Typography variant="subtitle1" fontWeight="bold" color="#FFF">
                     {title}
                 </Typography>
