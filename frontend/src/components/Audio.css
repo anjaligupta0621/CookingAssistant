@@ -6,13 +6,11 @@
 .inner
 {
     display: inline-block;
-	font-size: 30px;
 }
 
 button {
-	padding:10px 15px; 
+	padding:5px 15px; 
     margin-left: 50px;
-	font-size: 20px;
 	background:#3e47ae; 
 	border:0 none;
 	cursor:pointer;

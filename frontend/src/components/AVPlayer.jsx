@@ -164,8 +164,8 @@ const AVPlayer = (args) => {
             {selectedCategory}
         </Typography>
         
-        <div style={{display: 'flex',  justifyContent:'left', alignItems:'center', marginTop: '25px'}} >
-            <div ref={divRef} id="container" style={{ height: "500px" }} class= "col">
+        <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', marginTop: '25px'}}>
+            <div ref={divRef} id="container" style={{ height: "400px" }}>
                 <ReactPlayer
                 ref={playerRef}
                 url={"https://www.youtube.com/watch?v=" + videoID}
@@ -189,12 +189,10 @@ const AVPlayer = (args) => {
                 config={args.config || undefined}
                 />
                 <br></br>
-                <div class= "col-md-auto" style={{display: 'flex',  justifyContent:'center', alignItems:'center', marginTop: '25px'}}>
+                <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', marginTop: '25px'}}>
                   <AudioListener handleCallBack = {handleJump} ingredients/>
                 </div>
-                
-
-              <div class= "col-md-auto">
+              <div>
                 <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
                     {splword}
                 </Typography>
