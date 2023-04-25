@@ -3,6 +3,7 @@ import axios from "axios";
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 // import { Typography, Box } from '@mui/material';
 import "./Audio.css"
+import { TableRow } from '@mui/material';
 // import { useSpeechSynthesis } from 'react-speech-kit';
 // import Speech from 'react-speech';
 
@@ -164,25 +165,27 @@ const AudioListener = (props) => {
 //  }
  
  return (
-    <div id="outer">
+
+ 
+    <div id="outer" class="row">
      <div className="inner">
        <div className='button-container'>
           <button className='buttons' type="button" onClick={listenContinuously}>Ask</button>
           <button className='buttons' type="button" onClick={resetTranscript}>Reset</button>
           <button className='buttons' type="button" onClick={stopListen}>Stop</button>
        </div>
-     </div>
-     <div className="inner">
+     </div>  
+   <div className="inner">
+    
        <span className='spanColor'>{transcript}</span>
-     </div>
         {/* <div> */}
         {/* <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
             {splword}
         </Typography> */}
 
         {/* </div> */}
-   
-   </div>
+     </div>
+     </div>
    
 
  );
