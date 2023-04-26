@@ -9,6 +9,9 @@ const Categories = ({ selectedCategory, setSelectedCategory }) => {
     if(name === "Video Feed"){
       navigate('/');
     }
+    else if (name === "Instructions") {
+      navigate('/instructions');
+    }
   }
 
   return (
