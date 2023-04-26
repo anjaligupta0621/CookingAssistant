@@ -38,7 +38,7 @@ const AVPlayer = (args) => {
         'id': lastSegment
       }
     )
-
+    console.log("########################",data);
     // Api for ingredients is being called here
     // Output stored in ingredients use state
     axios.post('/api/getingredients', data, {headers:{"Content-Type" : "application/json"}})
@@ -205,7 +205,7 @@ const AVPlayer = (args) => {
                   {ingredients.map((item, idx) => (
                   // <Box key={idx}>
                   //   <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
-                  <tr style={{border: '2px solid pink'}} > <td style={{textalign: 'center'}}>{item} </td></tr>
+                  <tr style={{border: '2px solid pink'}} > <td style={{textalign: 'center'}}><h1>{item}</h1></td></tr>
                   // </Typography>
                   // </Box>
                 ))}

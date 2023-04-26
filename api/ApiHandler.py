@@ -1,6 +1,11 @@
 from flask_restful import  Resource
 from flask import request
-from pytube import YouTube
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
+from oauth2client.tools import argparser
+# import youtube_dl
+
+# from pytube import YouTube
 
 import logging
 
@@ -33,32 +38,62 @@ class VideoDescription(Resource):
     def post(self):
         # args = request.args
         # print (args)
+        api_key = "AIzaSyBg-3GkQ_eQJkc3ncJ4TxzQQEYx2JSukM4"
         video_id = str(request.json['id'])
-        video = YouTube("https://www.youtube.com/watch?v=" + video_id)
-        print ("Hello from Video Description")
-        print ("Video ID: ", video_id)
-        description = video.description
-        print (description)
-        sub1 = "Ingredients:"
-        sub2 = "Method:"
-        # getting index of substrings
-        idx1 = description.index(sub1)
-        idx2 = description.index(sub2)
+        youtube = build('youtube', 'v3', developerKey=api_key)
+        # url = 'https://www.youtube.com/watch?v=' + video_id
+        # with youtube_dl.YoutubeDL() as ydl:
+        #     info_dict = ydl.extract_info(url, download=False)
+        #     description = info_dict.get('description', None)
+        # video_url = 'https://www.youtube.com/watch?v=' + video_id
+        # ydl = youtube_dl.YoutubeDL()
+
+        # fetch the video details
+        # video = ydl.extract_info(video_url, download=False)
+        # video = YouTube("https://www.youtube.com/watch?v=" + video_id)
+        # print("The video from backend", video)
+        # print("The video from backend", video.author)
+        # print ("Hello from Video Description")
+        try:
+            # Call the YouTube API to retrieve the video resource
+            video_response = youtube.videos().list(
+                part='snippet',
+                id=video_id
+            ).execute()
+
+            # Retrieve the video description from the response
+            description = video_response['items'][0]['snippet']['description']
+
+            # Print the video description
+            print(description)
+            print (description)
+            sub1 = "Ingredients:"
+            sub2 = "Method:"
+            # getting index of substrings
+            idx1 = description.index(sub1)
+            idx2 = description.index(sub2)
+            
+            res = ''
+            # getting elements in between
+            for idx in range(idx1 + len(sub1) + 1, idx2):
+                res = res + description[idx]
+            print(res.split('\n'))
+            resList = res.split('\n')
+            # printing result
+            print("The extracted string : " + res)
+            # split_word = 'Ingredients:'
+            # res = description[description.find(split_word)+len(split_word):]
+            # print('Result',res)
+            return {
+                'resultStatus': 'SUCCESS',
+                'description': resList
+            }
+
+        except HttpError as e:
+            print(f'An HTTP error {e.resp.status} occurred:\n{e.content}')
+            print ("Video ID: ", video_id)
+        # description = video.description
         
-        res = ''
-        # getting elements in between
-        for idx in range(idx1 + len(sub1) + 1, idx2):
-            res = res + description[idx]
-        print(res.split('\n'))
-        resList = res.split('\n')
-        # printing result
-        print("The extracted string : " + res)
-        # split_word = 'Ingredients:'
-        # res = description[description.find(split_word)+len(split_word):]
-        # print('Result',res)
-        return {
-            'resultStatus': 'SUCCESS',
-            'description': resList
-        }
+
 
 
