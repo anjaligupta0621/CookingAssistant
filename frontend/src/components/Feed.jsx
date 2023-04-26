@@ -87,7 +87,25 @@ const Feed = () => {
                 <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
                     {selectedCategory}
                 </Typography>
-                <Videos videoData={searchData}/>
+                {(searchData.length !== 0) ? 
+                    (<Videos videoData={searchData}/>) : 
+                    (<div 
+                        style={{
+                            textAlign:'center',
+                            width:'100%',
+                            }}>
+                        
+                        <img src={"no-results.png"} alt="No Results" style={{ height: '200px', width: '200px' }} />
+                        <br />
+                        <span 
+                            style={{
+                                color:'white',
+                                fontSize:'40px',
+                                fontweight:'bold',
+                            }}>
+                                No Results found for your search. Please try again!
+                        </span>
+                    </div>)}
             </Box>
         </Stack>
     )
