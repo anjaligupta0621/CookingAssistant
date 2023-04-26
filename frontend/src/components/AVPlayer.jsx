@@ -38,7 +38,7 @@ const AVPlayer = (args) => {
         'id': lastSegment
       }
     )
-
+    console.log("########################",data);
     // Api for ingredients is being called here
     // Output stored in ingredients use state
     axios.post('/api/getingredients', data, {headers:{"Content-Type" : "application/json"}})
