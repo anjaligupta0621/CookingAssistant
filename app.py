@@ -29,7 +29,6 @@ def serve(path):
     return send_from_directory('frontend/build', 'index.html')
 
 @app.route("/api/yturls", methods=["GET"])
-@cross_origin()
 def VideoUrls():
     """GET in server"""
     args = request.args
@@ -58,7 +57,6 @@ def VideoUrls():
     return response
 
 @app.route("/api/getingredients", methods=["GET"])
-@cross_origin()
 def VideoDescription():
     api_key = "AIzaSyBg-3GkQ_eQJkc3ncJ4TxzQQEYx2JSukM4"
     video_id = str(request.json['id'])
