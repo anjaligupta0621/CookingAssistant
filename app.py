@@ -24,7 +24,6 @@ app = create_app()
 api = CORS(app)
 
 @app.route("/", defaults={'path': ''})
-@cross_origin()
 def serve(path):
     return send_from_directory('frontend/build', 'index.html')
 
@@ -57,6 +56,7 @@ def VideoUrls():
     return response
 
 @app.route("/api/getingredients", methods=["POST"])
+@cross_origin()
 def VideoDescription():
     api_key = "AIzaSyBg-3GkQ_eQJkc3ncJ4TxzQQEYx2JSukM4"
     video_id = str(request.json['id'])
@@ -95,8 +95,6 @@ def VideoDescription():
             'description': resList
         })
 
-        # Enable Access-Control-Allow-Origin
-        response.headers.add("Access-Control-Allow-Origin", "*")
         return response
 
     except HttpError as e:
