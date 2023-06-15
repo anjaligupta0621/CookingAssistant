@@ -56,7 +56,7 @@ def VideoUrls():
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
 
-@app.route("/api/getingredients", methods=["GET"])
+@app.route("/api/getingredients", methods=["POST"])
 def VideoDescription():
     api_key = "AIzaSyBg-3GkQ_eQJkc3ncJ4TxzQQEYx2JSukM4"
     video_id = str(request.json['id'])
