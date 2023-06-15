@@ -49,19 +49,6 @@ const AVPlayer = (args) => {
       .catch(error => {
         console.log(error);
       })
-
-    // fetch('/api/getingredients', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({videoID})
-    // })
-    // .then(response => {
-    //   console.log("Body: ");
-    //   console.log(response);
-    // })
-    // .catch(error => console.log(error))
   }, [])
 
   const [dataChild, setdataChild] = useState(0);

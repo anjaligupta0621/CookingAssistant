@@ -1,8 +1,11 @@
 from flask_restful import  Resource
 from flask import request
+from flask import Flask, jsonify
+
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from oauth2client.tools import argparser
+from flask_cors import cross_origin
 # import youtube_dl
 
 # from pytube import YouTube
@@ -29,10 +32,17 @@ class VideoUrls(Resource):
             "https://www.youtube.com/watch?v=QA7YfDCmvs8",  # Video10
             "https://www.youtube.com/watch?v=E9bSLVgw0qI",  # Video11
             "https://www.youtube.com/watch?v=6XlMguO9r-M"] # Video12
-        return {
+        
+        response = flask.jsonify({
             'resultStatus': 'SUCCESS',
             'url': yt_urls
-        }
+        })
+
+        return response
+        # return {
+        #     'resultStatus': 'SUCCESS',
+        #     'url': yt_urls
+        # }
     
 class VideoDescription(Resource):
     def post(self):
@@ -84,10 +94,16 @@ class VideoDescription(Resource):
             # split_word = 'Ingredients:'
             # res = description[description.find(split_word)+len(split_word):]
             # print('Result',res)
-            return {
+            response = flask.jsonify({
                 'resultStatus': 'SUCCESS',
                 'description': resList
-            }
+            })
+
+            return response
+            # return {
+            #     'resultStatus': 'SUCCESS',
+            #     'description': resList
+            # }
 
         except HttpError as e:
             print(f'An HTTP error {e.resp.status} occurred:\n{e.content}')
