@@ -13,7 +13,7 @@ const Feed = () => {
 
     useEffect(() => {
         setVideos(null);
-        axios.get('/api/yturls')
+        axios.get('https://cooking-assistant-53a56a33e285.herokuapp.com/api/yturls')
         .then(response => {
             setVideos(response.data.url);
             // const d = response.data.url;

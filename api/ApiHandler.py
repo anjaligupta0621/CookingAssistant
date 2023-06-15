@@ -31,7 +31,8 @@ class VideoUrls(Resource):
             "https://www.youtube.com/watch?v=6XlMguO9r-M"] # Video12
         return {
             'resultStatus': 'SUCCESS',
-            'url': yt_urls
+            'url': yt_urls,
+            'Access-Control-Allow-Origin': '*'
         }
     
 class VideoDescription(Resource):
@@ -84,9 +85,11 @@ class VideoDescription(Resource):
             # split_word = 'Ingredients:'
             # res = description[description.find(split_word)+len(split_word):]
             # print('Result',res)
+
             return {
                 'resultStatus': 'SUCCESS',
-                'description': resList
+                'description': resList,
+                'Access-Control-Allow-Origin': '*'
             }
 
         except HttpError as e:

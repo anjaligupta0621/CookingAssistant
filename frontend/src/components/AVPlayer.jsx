@@ -41,7 +41,7 @@ const AVPlayer = (args) => {
     console.log("########################",data);
     // Api for ingredients is being called here
     // Output stored in ingredients use state
-    axios.post('/api/getingredients', data, {headers:{"Content-Type" : "application/json"}})
+    axios.post('https://cooking-assistant-53a56a33e285.herokuapp.com/api/getingredients', data, {headers:{"Content-Type" : "application/json"}})
       .then(response => {
         setIngredients(response.data.description);
         console.log(response.data.description);
