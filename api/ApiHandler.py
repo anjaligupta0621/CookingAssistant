@@ -1,6 +1,5 @@
 from flask_restful import  Resource
 from flask import request
-from flask import jsonify
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from oauth2client.tools import argparser
@@ -30,18 +29,9 @@ class VideoUrls(Resource):
             "https://www.youtube.com/watch?v=QA7YfDCmvs8",  # Video10
             "https://www.youtube.com/watch?v=E9bSLVgw0qI",  # Video11
             "https://www.youtube.com/watch?v=6XlMguO9r-M"] # Video12
-        
-        response = flask.jsonify({
-            'resultStatus': 'SUCCESS',
-            'url': yt_urls,
-        })
-
-        response.headers.add('Access-Control-Allow-Origin', '*')
-
-        return response
         return {
             'resultStatus': 'SUCCESS',
-            'url': yt_urls,
+            'url': yt_urls
         }
     
 class VideoDescription(Resource):
@@ -94,17 +84,10 @@ class VideoDescription(Resource):
             # split_word = 'Ingredients:'
             # res = description[description.find(split_word)+len(split_word):]
             # print('Result',res)
-            response = flask.jsonify({
+            return {
                 'resultStatus': 'SUCCESS',
-                'description': resList,
-            })
-            response.headers.add('Access-Control-Allow-Origin', '*')
-
-            return response
-            # return {
-            #     'resultStatus': 'SUCCESS',
-            #     'description': resList,
-            # }
+                'description': resList
+            }
 
         except HttpError as e:
             print(f'An HTTP error {e.resp.status} occurred:\n{e.content}')
