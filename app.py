@@ -1,6 +1,6 @@
 from flask import Flask, send_from_directory, jsonify
 from flask_restful import Api
-from flask import request
+from flask import request, redirect, url_for, render_template
 from api.ApiHandler import VideoUrls
 from api.ApiHandler import VideoDescription
 from flask_cors import CORS
@@ -28,6 +28,14 @@ api = CORS(app)
 
 @app.route("/", defaults={'path': ''})
 def serve(path):
+    return send_from_directory('frontend/build', 'index.html')
+
+@app.route("/avplayer/<id>")
+def serveAV(id):
+    return send_from_directory('frontend/build', 'index.html')
+
+@app.route("/instructions")
+def serveInstr():
     return send_from_directory('frontend/build', 'index.html')
 
 @app.route("/api/yturls", methods=["GET"])
