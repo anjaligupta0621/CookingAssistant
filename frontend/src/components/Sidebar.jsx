@@ -1,17 +1,30 @@
 import { Stack } from '@mui/material';
 import { useNavigate } from "react-router-dom"
 import { categories } from '../utils/constants';
+import { useEffect, useState } from 'react';
 
 const Categories = ({ selectedCategory, setSelectedCategory }) => {
   const navigate = useNavigate();
 
+  const [showArrow, setShowArrow] = useState(true);
+
   const onCatClick = (name) => {
     if(name === "Video Feed"){
+      handleArrowClick();
       navigate('/');
+      
     }
     else if (name === "Instructions") {
+      handleArrowClick();
       navigate('/instructions');
+      
     }
+  }
+
+  const handleArrowClick = () => {
+    setShowArrow(prevState => {
+      return (prevState ? !prevState : prevState)
+    });
   }
 
   return (
@@ -41,6 +54,12 @@ const Categories = ({ selectedCategory, setSelectedCategory }) => {
           </span>
           <span style={{ opacity: category.name === selectedCategory ? "1" : "0.7" }}>
             {category.name}
+            <br></br>
+            {category.name.toLowerCase() === "instructions" && showArrow && (
+                <div style={{color: "white"}} className="arrow" onClick={handleArrowClick}>
+                    &uarr; Open this First                  
+                </div>
+            )}
           </span>
         </button>
       ))}

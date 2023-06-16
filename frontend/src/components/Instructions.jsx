@@ -10,9 +10,6 @@ function Instructions(props) {
         <Stack sx={{ flexDirection: { sx: "column", md: "row" } }}>
             <Box sx={{ height: { sx: "auto", md: "92vh" }, borderRight: "1px solid #3d3d3d", px: { sx: 0, md: 2 } }}>
                 <Sidebar selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
-                <Typography className="copyright" variant="body2" sx={{ mt: 1.5, color: "#fff", }}>
-                    Copyright © 2023 UFL
-                </Typography>
             </Box>
             <Box p={2} sx={{ overflowY: "auto", height: "90vh", flex: 2 }}>
                 <Typography variant="h4" alignSelf={'center'} fontWeight="bold" mb={2} sx={{ color: "white" }}>
@@ -20,6 +17,30 @@ function Instructions(props) {
                 </Typography>
                 <Typography variant="h5" mb={2} sx={{ color: "white" }}>
                     Welcome to Cooking Assist!
+                </Typography>
+                <Typography variant="h6" mb={2} sx={{ color: "white" }}>
+                    Everyone loves to eat delicious food. Some of us love to try out different recipes for
+                    making food. And for that, most of us rely on YouTube for providing us with good recipe
+                    videos. Although, it is a big pain point that we have to touch our devices to play and 
+                    pause the video so many times, or rewind to look for the quantity of a particular 
+                    ingredient while we are cooking. While cooking, our hands are often occupied with 
+                    other stuff, which prevents us from multi-tasking. If only, there was a way to 
+                    revolutionize the way we cook.
+                    <br />
+                    Well, it turns out there is a way if we use this application. Cooking Assist is a web 
+                    application that helps you to cook your favorite recipes by providing you with a video 
+                    feed of the recipe and a voice assistant that can help you talk to the video while 
+                    cooking your favourite dish. The application allows its users to interact with the 
+                    YouTube video they are watching using Speech. 
+                    <br />
+                    With this application, users can interact with the YouTube video more naturally by 
+                    just giving it speech commands. The functionalities of the application include 
+                    playing/pausing the video, displaying ingredients of a video, displaying and speaking 
+                    the amount of a particular ingredient in the recipe, jumping to a particular timestamp
+                     in the video, and navigating backwards and forward in the video. All of these are 
+                     included to make the process of cooking more natural for the users. 
+                     Moreover, there are features like search bar and instructions page so that it is 
+                     convenient for the users to use the application.
                 </Typography>
                 <Typography variant="h6" mb={2} sx={{ color: "white" }}>
                     Below are the instructions that you can follow for a smooth experience.

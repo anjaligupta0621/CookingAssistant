@@ -54,9 +54,10 @@ def VideoUrls():
         "https://www.youtube.com/watch?v=ZBwB53EvrRo",  # Video7
         "https://www.youtube.com/watch?v=r4saZD0J_gU",  # Video8
         "https://www.youtube.com/watch?v=jZQT6wnyeD4",  # Video9
-        "https://www.youtube.com/watch?v=QA7YfDCmvs8",  # Video10
-        "https://www.youtube.com/watch?v=E9bSLVgw0qI",  # Video11
-        "https://www.youtube.com/watch?v=6XlMguO9r-M"] # Video12
+        # "https://www.youtube.com/watch?v=QA7YfDCmvs8",  # Video10
+        # "https://www.youtube.com/watch?v=E9bSLVgw0qI",  # Video11
+        # "https://www.youtube.com/watch?v=6XlMguO9r-M" # Video12
+        ] 
     
     response = jsonify({
         'resultStatus': 'SUCCESS',
