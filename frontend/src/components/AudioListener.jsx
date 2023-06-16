@@ -159,10 +159,6 @@ const AudioListener = (props) => {
    console.log('Your browser does not support speech recognition software! Try Chrome desktop, maybe?');
  }
 
-//  const onSpeakHandler = (value) => {
-//   speak({text: value});
-//  }
- 
  return (
     <div id="outer">
      <div className="inner">
@@ -175,12 +171,6 @@ const AudioListener = (props) => {
      <div className="inner">
        <span className='spanColor'>{transcript}</span>
      </div>
-        {/* <div> */}
-        {/* <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
-            {splword}
-        </Typography> */}
-
-        {/* </div> */}
    
    </div>
    

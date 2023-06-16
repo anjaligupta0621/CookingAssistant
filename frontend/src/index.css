@@ -44,6 +44,8 @@ a {
   border:none;
   outline:none;
   width:350px;
+  height: 50px;
+  margin-bottom: 30px;
 }
 
 .header-nav {
@@ -72,6 +74,10 @@ a {
   transition: all 0.3s ease;
 }
 
+.cont {
+  height: "400px"
+}
+
 @media screen and (max-width: 900px) {
   .category-btn{
     margin: 10px;
@@ -94,5 +100,35 @@ a {
   }
   .search-bar{
     width:200px;
+  }
+
+  .cont {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .cont {
+    align-items: center;
+    text-align: center;
+  }
+
+  .avplayer {
+    height: 50%;
+    width: 50%;
+  }
+} 
+
+@media only screen and (max-device-width: 480px) {
+  .cont {
+    align-items: center;
+    text-align: center;
+  }
+
+  .avplayer {
+    height: 50%;
+    width: 50%;
   }
 }

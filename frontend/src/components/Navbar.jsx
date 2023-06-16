@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Grid, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {

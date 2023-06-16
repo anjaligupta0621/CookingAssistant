@@ -4,7 +4,7 @@ import ReactPlayer from "react-player"
 import { Box, Stack, Table, Typography } from '@mui/material';
 import { Sidebar, AudioListener} from './';
 import { useSpeechSynthesis } from 'react-speech-kit';
-import Speech from 'react-speech';
+
 const AVPlayer = (args) => {
  
   const [isPlaying, setIsPlaying] = useState(args.playing) // handling state of play/pause of player
@@ -138,29 +138,34 @@ const AVPlayer = (args) => {
   "progress_interval": 1000
   }
 
+  const dimensions = {
+    width: window.screen.width < 500 ? "400px" : (window.screen.width < 800 ? "700px": "800px"),
+    height: window.screen.width < 700 ? "400px" : "600px"
+  }
+
   return (
     <Stack sx={{ flexDirection: { sx: "column", md: "row" } }}>
       <Box sx={{ height: { sx: "auto", md: "92vh" }, borderRight: "1px solid #3d3d3d", px: { sx: 0, md: 2 } }}>
           <Sidebar selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
-          <Typography className="copyright" variant="body2" sx={{ mt: 1.5, color: "#fff", }}>
+          {/* <Typography className="copyright" variant="body2" sx={{ mt: 1.5, color: "#fff", }}>
               Copyright © 2023 UFL
-          </Typography>
+          </Typography> */}
       </Box>
       <Box p={2} sx={{ overflowY: "auto", height: "90vh", flex: 2 }}>
-        <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
+        {/* <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
             {selectedCategory}
-        </Typography>
+        </Typography> */}
         
-        <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', marginTop: '25px'}}>
-            <div ref={divRef} id="container" style={{ height: "400px" }}>
-                <ReactPlayer
+        <div style={{justifyContent:'center', alignItems:'center', marginTop: '25px'}}>
+            <div ref={divRef} style={{ alignItems: "center", textAlign: "center", margin: "2vw"}}>
+              <ReactPlayer
                 ref={playerRef}
                 url={"https://www.youtube.com/watch?v=" + videoID}
                 onPlay={onVideoPlay}
                 onPause={onVideoPause}
                 options={options}
-                width={args.width || undefined}
-                height={args.height || undefined}
+                width={"80vw"}
+                height={"50vh"}
                 playing={isPlaying || false}
                 timestamps = {isTimestamps || false}
                 ingred = {isIngredients || false}
@@ -174,31 +179,26 @@ const AVPlayer = (args) => {
                 progressInterval={args.progressInterval}
                 playsinline={args.playInline || undefined}
                 config={args.config || undefined}
-                />
-                <br></br>
-                <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', marginTop: '25px'}}>
-                  <AudioListener handleCallBack = {handleJump} ingredients/>
-                </div>
-              <div>
-                <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
-                    {splword}
-                </Typography>
-              </div>
-                
-                
-                <br></br>
-              {(isIngredients) ?
-                <Table style={{border: '2px solid forestgreen', width: '800px', height: '100px'}} variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
-                  {ingredients.map((item, idx) => (
-                  // <Box key={idx}>
-                  //   <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
-                  <tr style={{border: '2px solid pink'}} > <td style={{textalign: 'center'}}><h2>{item}</h2></td></tr>
-                  // </Typography>
-                  // </Box>
-                ))}
-                </Table> : ''
-              } 
+              />
+              <br></br>
             </div>
+            <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', marginTop: '25px'}}>
+                <AudioListener handleCallBack = {handleJump} ingredients/>
+            </div>
+            <div>
+              <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
+                {splword}
+              </Typography>
+            </div>
+            <br></br>
+            {(isIngredients) ?
+              // <Table style={{border: '2px solid forestgreen', width: '800px', height: '100px'}} variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
+              <Table style={{border: '2px solid forestgreen', width: "80vw", height: "100%", margin: "2vw"}} variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
+                {ingredients.map((item, idx) => (
+                <tr style={{border: '2px solid pink'}} > <td style={{textalign: 'center'}}><h2>{item}</h2></td></tr>
+              ))}
+              </Table> : ''
+            } 
         </div>
       </Box>
     </Stack>
